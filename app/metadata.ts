@@ -10,5 +10,17 @@ export const metadata = {
     icon: '/favicon.ico',
     apple: '/favicon.ico',
     shortcut: '/favicon.ico',
+    other: [
+      {
+        url: '/favicon.ico',
+        sizes: '16x16',
+        type: 'image/x-icon'
+      },
+      {
+        url: '/favicon.ico',
+        sizes: '32x32',
+        type: 'image/x-icon'
+      }
+    ]
   },
 };
