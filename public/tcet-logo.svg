@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Shield shape -->
+  <path d="M100,10 L180,40 L180,120 C180,160 140,180 100,190 C60,180 20,160 20,120 L20,40 L100,10 Z" fill="none" stroke="#FFD700" stroke-width="8"/>
+  
+  <!-- College name -->
+  <text x="100" y="100" font-family="Arial" font-size="24" font-weight="bold" fill="#000080" text-anchor="middle">TCET</text>
+  
+  <!-- Banner at bottom -->
+  <path d="M30,140 C50,130 150,130 170,140 C150,150 50,150 30,140 Z" fill="#FFD700"/>
+  <text x="100" y="145" font-family="Arial" font-size="8" font-weight="bold" fill="#000080" text-anchor="middle">THAKUR COLLEGE OF ENGINEERING &amp; TECHNOLOGY</text>
+</svg>
