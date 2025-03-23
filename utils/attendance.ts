@@ -1,7 +1,14 @@
 import { createClient } from './supabase/client';
 
-export interface AttendanceRecord {
-  id?: string;
+interface Student {
+  id: string;
+  first_name: string;
+  last_name: string;
+  roll_no: string;
+}
+
+interface AttendanceRecord {
+  id: string;
   student_id: string;
   class_id: string;
   date: string;
@@ -10,14 +17,19 @@ export interface AttendanceRecord {
   created_at?: string;
   updated_at?: string;
   subject_name: string;
+  students: Student;
 }
 
 interface StudentAttendance {
   id: string;
-  name: string;
+  studentId: string;
   rollNo: string;
-  status: "Present" | "Absent";
+  name: string;
   date: string;
+  status: "Present" | "Absent";
+  subject: string;
+  classSection: string;
+  createdAt: string;
 }
 
 /**
@@ -150,12 +162,7 @@ export async function getAttendanceByDate(
       status: 'Present' | 'Absent';
       date: string;
       student_id: string;
-      students: {
-        id: string;
-        first_name: string;
-        last_name: string;
-        roll_no: string;
-      };
+      students: Student;
     }
     
     // Query attendance with joined student data
@@ -194,12 +201,7 @@ export async function getAttendanceSummary(classId: string, startDate?: string, 
       student_id: string;
       status: 'Present' | 'Absent';
       date: string;
-      students: {
-        id: string;
-        first_name: string;
-        last_name: string;
-        roll_no: string;
-      };
+      students: Student;
     }
     
     let query = supabase
@@ -289,50 +291,54 @@ export async function getAttendanceForDateRange(
   startDate: string, 
   endDate: string,
   subjectName?: string
-) {
+): Promise<StudentAttendance[]> {
   const supabase = createClient();
   
   try {
-    // Build the query
     let query = supabase
       .from('attendance')
       .select(`
         id,
         student_id,
-        status,
+        class_id,
         date,
+        status,
         subject_name,
         created_at,
-        students!inner(id, first_name, last_name, roll_no)
+        students (
+          id,
+          first_name,
+          last_name,
+          roll_no
+        )
       `)
       .eq('class_id', classId)
       .gte('date', startDate)
-      .lte('date', endDate)
-      .order('date', { ascending: false });
-    
-    // Add subject filter if provided
+      .lte('date', endDate);
+
     if (subjectName) {
       query = query.eq('subject_name', subjectName);
     }
-    
+
     const { data, error } = await query;
     
     if (error) {
       throw error;
     }
     
+    if (!data) return [];
+    
     // Transform data for report format
-    return data.map(record => ({
+    return data.map((record: any) => ({
       id: record.id,
       studentId: record.student_id,
       rollNo: record.students.roll_no,
       name: `${record.students.first_name} ${record.students.last_name}`,
-      date: record.date,
       status: record.status,
+      date: record.date,
       subject: record.subject_name,
-      classId: classId,
-      classSection: getClassNameById(classId), // Helper function to be defined
-      createdAt: record.created_at
+      classSection: getClassNameById(record.class_id),
+      createdAt: record.created_at || new Date().toISOString()
     }));
     
   } catch (error) {
@@ -350,4 +356,4 @@ function getClassNameById(classId: string): string {
   };
   
   return classNames[classId] || 'Unknown Class';
-} 
+}
