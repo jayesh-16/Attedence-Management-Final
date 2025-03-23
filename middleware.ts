@@ -3,7 +3,7 @@ import { updateSession } from "@/utils/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
   // Skip middleware for favicon requests
-  if (request.nextUrl.pathname === '/favicon.ico') {
+  if (request.nextUrl.pathname === '/favicon.png') {
     return NextResponse.next();
   }
   return await updateSession(request);
