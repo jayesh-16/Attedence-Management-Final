@@ -7,19 +7,24 @@ export const metadata = {
   title: "TCET | Mme Attendance",
   description: "Attendance Management System for TCET MME",
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+    shortcut: '/favicon.png',
     other: [
       {
-        url: '/favicon.ico',
+        url: '/favicon.png',
         sizes: '16x16',
-        type: 'image/x-icon'
+        type: 'image/png'
       },
       {
-        url: '/favicon.ico',
+        url: '/favicon.png',
         sizes: '32x32',
-        type: 'image/x-icon'
+        type: 'image/png'
+      },
+      {
+        url: '/favicon.png',
+        sizes: '48x48',
+        type: 'image/png'
       }
     ]
   },
