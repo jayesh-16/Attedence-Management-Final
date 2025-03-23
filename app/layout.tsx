@@ -46,6 +46,14 @@ export default function RootLayout({
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        
+        {/* Favicon links */}
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
+        <link rel="manifest" href="/site.webmanifest" />
         {/* Add any other metadata tags you need */}
       </head>
       <body className="bg-white overflow-x-hidden">

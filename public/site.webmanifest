@@ -1,0 +1,24 @@
+{
+  "name": "TCET MME Attendance",
+  "short_name": "TCET Attendance",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "180x180",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
