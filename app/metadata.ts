@@ -8,5 +8,7 @@ export const metadata = {
   description: "Attendance Management System for TCET MME",
   icons: {
     icon: '/favicon.ico',
+    apple: '/favicon.ico',
+    shortcut: '/favicon.ico',
   },
 };
