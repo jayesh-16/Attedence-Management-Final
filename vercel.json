@@ -12,5 +12,7 @@
       "dest": "/$1"
     }
   ],
-  "installCommand": "npm install --legacy-peer-deps"
+  "installCommand": "yarn install",
+  "buildCommand": "yarn build",
+  "outputDirectory": ".next"
 }
