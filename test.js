@@ -1,0 +1,1 @@
+const { createClient } = require('@supabase/supabase-js'); const supabase = createClient('undefined', 'undefined'); supabase.from('attendance').select('*').limit(1).then(console.log);

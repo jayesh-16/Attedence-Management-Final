@@ -11,10 +11,20 @@ import {
   LogOut,
   User,
   RefreshCw,
-  Sun
+  Sun,
+  UserPlus,
+  GraduationCap,
+  Users,
+  BookOpen,
+  Settings,
+  CalendarDays,
+  Key,
+  Layers,
+  ClipboardCheck
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import { logoutLocalAction } from "@/app/actions";
 
 // Create a context for global refresh functionality with proper types
 type RefreshContextType = {
@@ -44,6 +54,8 @@ interface MenuItem {
   icon: React.ElementType;
   path: string;
   gradient: string;
+  adminOnly?: boolean;
+  teacherOnly?: boolean;
 }
 
 const menuItems: MenuItem[] = [
@@ -54,12 +66,20 @@ const menuItems: MenuItem[] = [
     path: "/",
     gradient: "from-blue-500 to-indigo-600"
   },
-  { 
-    id: 2, 
-    title: "Attendance", 
-    icon: Clock, 
-    path: "/addSubject",
-    gradient: "from-green-500 to-emerald-600"
+  {
+    id: 2,
+    title: "Calendar",
+    icon: CalendarDays,
+    path: "/calendar",
+    gradient: "from-emerald-500 to-teal-600"
+  },
+  {
+    id: 11,
+    title: "Attendance",
+    icon: ClipboardCheck,
+    path: "/attendance",
+    gradient: "from-emerald-500 to-teal-600",
+    teacherOnly: true
   },
   { 
     id: 3, 
@@ -74,6 +94,60 @@ const menuItems: MenuItem[] = [
     icon: FileText, 
     path: "/reports",
     gradient: "from-amber-500 to-orange-600"
+  },
+  { 
+    id: 5, 
+    title: "Enrollment", 
+    icon: UserPlus, 
+    path: "/enroll",
+    gradient: "from-cyan-500 to-blue-600",
+    adminOnly: true
+  },
+  { 
+    id: 6, 
+    title: "Students", 
+    icon: GraduationCap, 
+    path: "/students",
+    gradient: "from-blue-500 to-indigo-600"
+  },
+  { 
+    id: 7, 
+    title: "Teachers", 
+    icon: Users, 
+    path: "/teachers",
+    gradient: "from-purple-500 to-pink-500",
+    adminOnly: true
+  },
+  { 
+    id: 8, 
+    title: "Manage Subjects", 
+    icon: BookOpen, 
+    path: "/manage-subjects",
+    gradient: "from-blue-500 to-indigo-600",
+    adminOnly: true
+  },
+  { 
+    id: 9, 
+    title: "Configuration", 
+    icon: Settings, 
+    path: "/configuration",
+    gradient: "from-emerald-500 to-teal-600",
+    adminOnly: true
+  },
+  {
+    id: 10,
+    title: "Setup Login",
+    icon: Key,
+    path: "/setup-profile",
+    gradient: "from-gray-500 to-slate-700"
+  },
+  {
+    id: 12,
+    title: "My Lectures",
+    icon: Layers,
+    path: "/manage-lectures",
+    gradient: "from-violet-500 to-purple-700",
+    teacherOnly: true
   }
 ];
 
@@ -86,6 +160,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isExpanded, setIsExpanded }) => {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
+  const [userRole, setUserRole] = useState<string>("");
+  const [hasPassword, setHasPassword] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [realtimeStatus, setRealtimeStatus] = useState<'connected' | 'disconnected' | 'error'>('disconnected');
@@ -93,13 +169,23 @@ const Sidebar: React.FC<SidebarProps> = ({ isExpanded, setIsExpanded }) => {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+      // Extract from cookies
+      const getCookie = (name: string) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()?.split(';').shift();
+        return null;
+      };
+
+      const name = getCookie('auth_name') || "Local Admin";
+      const email = getCookie('auth_email') || "admin@tcet.edu";
+      const role = getCookie('auth_role') || "admin";
+      const hasPass = getCookie('auth_has_password');
       
-      if (user) {
-        setUserName(user.user_metadata?.full_name || user.email?.split('@')[0] || 'User');
-        setUserEmail(user.email || '');
-      }
+      setUserName(decodeURIComponent(name));
+      setUserEmail(decodeURIComponent(email));
+      setUserRole(decodeURIComponent(role));
+      setHasPassword(hasPass === "true");
     };
 
     getUserInfo();
@@ -291,9 +377,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isExpanded, setIsExpanded }) => {
 
   // Function to handle sign out
   const handleSignOut = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push('/login');
+    await logoutLocalAction();
   };
 
   return (
@@ -394,7 +478,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isExpanded, setIsExpanded }) => {
         </div>
 
         <nav className="p-4 space-y-2">
-          {menuItems.map((item) => {
+          {menuItems.filter(item => {
+             if (item.adminOnly && userRole !== 'admin') return false;
+             if (item.teacherOnly && userRole === 'admin') return false;
+             if (item.title === "Setup Login" && hasPassword) return false;
+             return true;
+          }).map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.title;
             
@@ -434,17 +523,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isExpanded, setIsExpanded }) => {
         </nav>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-gray-50">
-          <div className={`flex items-center mb-4 ${!isExpanded && "justify-center"}`}>
-            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-sm">
+          <button 
+            onClick={() => router.push('/setup-profile')}
+            className={`w-full flex items-center mb-4 hover:bg-gray-100 p-2 rounded-lg transition-colors duration-200 text-left ${!isExpanded && "justify-center"}`}
+            title="Change Passcode"
+          >
+            <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-sm">
               <User size={20} />
             </div>
             {isExpanded && (
-              <div className="ml-3">
+              <div className="ml-3 overflow-hidden">
                 <p className="font-medium text-gray-800">{userName}</p>
-                <p className="text-xs text-gray-500 truncate max-w-[150px]">{userEmail}</p>
+                <p className="text-xs text-gray-500 truncate">{userEmail}</p>
               </div>
             )}
-          </div>
+          </button>
           <button 
             onClick={handleSignOut}
             className={`
@@ -460,9 +553,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isExpanded, setIsExpanded }) => {
       </aside>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 shadow-lg">
-        <div className="flex justify-around items-center h-16">
-          {menuItems.map((item) => {
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 shadow-lg overflow-x-auto">
+        <div className="flex justify-start sm:justify-around items-center h-16 px-2 min-w-max space-x-2">
+          {menuItems.filter(item => {
+             if (item.adminOnly && userRole !== 'admin') return false;
+             if (item.teacherOnly && userRole === 'admin') return false;
+             if (item.title === "Setup Login" && hasPassword) return false;
+             return true;
+          }).map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.title;
             

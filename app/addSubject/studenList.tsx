@@ -218,17 +218,10 @@ export default function AttendanceTable({ selectedSubject }: AttendanceTableProp
         throw new Error(`Invalid class selected: ${selectedSubject.class}`);
       }
       
-      // Get current user ID
-      let recordedBy;
-      try {
-        const supabase = createClient();
-        const { data } = await supabase.auth.getUser();
-        recordedBy = data?.user?.id;
-        
-        console.log("Current user ID:", recordedBy);
-      } catch (e) {
-        console.warn("Error getting current user:", e);
-      }
+      // Get current user ID (Local auth mode)
+      let recordedBy = undefined;
+      // You can set this to a specific local user ID if required by the DB
+      // recordedBy = "local-admin-id";
       
       // Check if we need to verify the time restriction
       if (!force) {

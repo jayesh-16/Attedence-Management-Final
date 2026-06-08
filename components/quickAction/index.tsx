@@ -71,7 +71,6 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({ className, title, d
   const actionButtons: ActionButton[] = [
     { id: "addStudents", icon: FiUserPlus as React.ElementType, label: "Add Students", tooltip: "Add New Students", color: "bg-emerald-500 hover:bg-emerald-600", onClick: () => setPopupType("students") },
     { id: "addSubject", icon: FiBook as React.ElementType, label: "Add Subject", tooltip: "Create New Subject", color: "bg-blue-500 hover:bg-blue-600", onClick: () => setPopupType("subject") },
-    { id: "attendance", icon: FiClipboard as React.ElementType, label: "Take Attendance", tooltip: "Mark Attendance", color: "bg-teal-500 hover:bg-teal-600", onClick: () => router.push("/addSubject") },
     { id: "reports", icon: FiFileText as React.ElementType, label: "Generate Report", tooltip: "Generate Reports", color: "bg-purple-500 hover:bg-purple-600", onClick: () => router.push("/reports") }
   ];
 

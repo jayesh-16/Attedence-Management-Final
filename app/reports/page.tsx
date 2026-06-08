@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import ReportGenerator from "@/components/ReportGenerator";
 import { useRefresh } from "@/components/Sidebar";
 import { Card } from "@/components/ui/card";
-import Navbar from "@/components/Navbar";
 import { FileText, Calendar, Download } from "lucide-react";
 
 export default function ReportsPage() {
@@ -28,8 +27,6 @@ export default function ReportsPage() {
 
   return (
     <div className="w-full max-w-full p-4 sm:p-6">
-      {/* Navbar */}
-      <Navbar title="Reports" />
       
       {/* Page Header Card */}
       <div className="grid grid-cols-1 gap-4 mt-6">

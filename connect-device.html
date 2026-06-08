@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hardware Connection Required | SecureSync</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      background-color: #0a0c10;
+      color: #eceef0;
+      margin: 0;
+      overflow: hidden;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    
+    /* Custom Micro-interactions */
+    .scan-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #2563eb, transparent);
+      box-shadow: 0 0 15px #2563eb;
+      animation: scan 3s ease-in-out infinite;
+    }
+    @keyframes scan {
+      0%, 100% { transform: translateY(0); opacity: 0; }
+      10%, 90% { opacity: 1; }
+      50% { transform: translateY(180px); }
+    }
+
+    .pulse-ring {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.05); opacity: 0.2; }
+      100% { transform: scale(1); opacity: 0.5; }
+    }
+
+    .ellipsis-dot {
+      animation: blink 1.4s infinite both;
+    }
+    .ellipsis-dot:nth-child(2) { animation-delay: 0.2s; }
+    .ellipsis-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      20% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+
+    /* Mesh Gradient Background */
+    .mesh-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.03) 0%, transparent 30%),
+                  radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 40%);
+      z-index: -1;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#004ac6",
+            "surface-container-highest": "#e0e3e5",
+            "surface-variant": "#e0e3e5",
+            "surface-tint": "#0053db",
+            "surface-container": "#eceef0",
+            "on-tertiary-fixed-variant": "#7d2d00",
+            "tertiary-fixed": "#ffdbcd",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed": "#d3e4fe",
+            "surface-container-high": "#e6e8ea",
+            "outline": "#737686",
+            "on-secondary-container": "#54647a",
+            "on-primary-container": "#eeefff",
+            "tertiary": "#943700",
+            "on-secondary-fixed-variant": "#38485d",
+            "background": "#f7f9fb",
+            "on-secondary-fixed": "#0b1c30",
+            "secondary-fixed-dim": "#b7c8e1",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f2f4f6",
+            "surface": "#f7f9fb",
+            "on-primary-fixed": "#00174b",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#b4c5ff",
+            "on-primary-fixed-variant": "#003ea8",
+            "on-tertiary-container": "#ffede6",
+            "on-tertiary-fixed": "#360f00",
+            "primary-fixed": "#dbe1ff",
+            "inverse-surface": "#2d3133",
+            "tertiary-fixed-dim": "#ffb596",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "secondary": "#505f76",
+            "on-surface-variant": "#434655",
+            "outline-variant": "#c3c6d7",
+            "primary-fixed-dim": "#b4c5ff",
+            "secondary-container": "#d0e1fb",
+            "surface-bright": "#f7f9fb",
+            "on-surface": "#191c1e",
+            "on-background": "#191c1e",
+            "surface-dim": "#d8dadc",
+            "primary-container": "#2563eb",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "inverse-on-surface": "#eff1f3",
+            "error": "#ba1a1a",
+            "tertiary-container": "#bc4800"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "1rem",
+            "base": "4px",
+            "container-max": "1280px",
+            "xs": "0.25rem",
+            "sm": "0.5rem",
+            "lg": "1.5rem",
+            "xl": "2.5rem",
+            "gutter": "24px"
+          },
+          "fontFamily": {
+            "headline-xl": ["Hanken Grotesk"],
+            "label-sm": ["Hanken Grotesk"],
+            "label-md": ["Hanken Grotesk"],
+            "headline-lg": ["Hanken Grotesk"],
+            "body-md": ["Hanken Grotesk"],
+            "body-sm": ["Hanken Grotesk"],
+            "headline-md": ["Hanken Grotesk"],
+            "body-lg": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen">
+<div class="mesh-bg"></div>
+<!-- Header Anchor -->
+<header class="fixed top-0 w-full h-16 flex items-center justify-between px-md bg-surface-container-lowest dark:bg-inverse-surface shadow-sm border-b border-outline-variant dark:border-outline z-50">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">SecureSync Terminal</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 rounded-full transition-colors duration-200 hover:bg-surface-container-high dark:hover:bg-surface-variant text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center px-gutter pt-16 pb-20">
+<div class="max-w-md w-full text-center space-y-xl">
+<!-- Central Animated Scanner -->
+<div class="relative mx-auto w-64 h-64 flex items-center justify-center bg-inverse-surface/30 rounded-3xl border border-outline/20 backdrop-blur-sm overflow-hidden">
+<!-- Pulse Rings -->
+<div class="absolute w-48 h-48 border border-primary/30 rounded-full pulse-ring"></div>
+<div class="absolute w-56 h-56 border border-primary/10 rounded-full pulse-ring" style="animation-delay: 0.5s;"></div>
+<!-- Biometric Illustration Area -->
+<div class="relative w-40 h-48 flex items-center justify-center">
+<img alt="Biometric scanner visualization" class="w-full h-full object-contain opacity-80 mix-blend-lighten grayscale hover:grayscale-0 transition-all duration-700" data-alt="A high-tech digital fingerprint scanner interface displayed on a sleek, translucent screen. The aesthetic is ultra-modern and secure, featuring glowing blue data lines and intricate circuitry patterns. Soft cyan lighting illuminates the fingerprint ridges, while the background is a deep, dark navy void filled with subtle digital bokeh. The overall mood is professional, futuristic, and highly protected." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmh_mrnCxXCkbV5oU9lrjqZ4gUUIHrHJGPhfPdmm4C8RJZx75lQu271G0RB3TY6fibwA-gSqNX4KOa6Y6aawZ-2_vrPi0aczGUN3bLfoxLKXgM8-RdX-H-0n_L5co36soLqUqZw3VFfDvxT1aWlfO3AmIxuQCOLWRoSpYBRnTD6Gf1pI91494pqrxTYyK1_VmTwUjXzymATzSBPZnc723-tD8GrK6cottXkg_QAZMv0YdEi6OEYIt9P2yTbDOf2dohlC3D70z_fnmZ"/>
+<!-- Scan Line Overlay -->
+<div class="absolute top-0 left-0 w-full scan-line z-10"></div>
+<!-- Identity Placeholder -->
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-primary/40" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+</div>
+</div>
+<!-- Content -->
+<div class="space-y-sm">
+<h1 class="font-headline-xl text-headline-xl text-on-background dark:text-inverse-on-surface">Hardware Connection Required</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant dark:text-surface-variant max-w-sm mx-auto">
+          Please connect your Biometric Fingerprint device via USB to continue.
+        </p>
+</div>
+<!-- Status Indicator -->
+<div class="flex items-center justify-center gap-2 py-md bg-surface-container-low/20 rounded-full border border-outline/10 max-w-[240px] mx-auto">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#2563eb]"></span>
+<span class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant tracking-wider">
+          Searching for device<span class="ellipsis-dot">.</span><span class="ellipsis-dot">.</span><span class="ellipsis-dot">.</span>
+</span>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar / Nav Shell -->
+<footer class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 pb-safe px-4 bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline z-50">
+<!-- Suppression Logic: On Task-Focused screen, we provide a focused primary action -->
+<div class="w-full max-w-container-max flex items-center justify-center gap-md">
+<button class="group flex items-center gap-sm px-xl py-3 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl font-label-md text-label-md transition-all duration-200 active:scale-95 hover:shadow-lg hover:shadow-primary/20" id="retryBtn">
+<span class="material-symbols-outlined transition-transform group-hover:rotate-180">refresh</span>
+        Retry Connection
+      </button>
+</div>
+</footer>
+<script>
+    document.getElementById('retryBtn').addEventListener('click', function() {
+      const btnText = this.querySelector('span:last-child');
+      const originalText = btnText.innerText;
+      
+      this.classList.add('opacity-80', 'cursor-not-allowed');
+      btnText.innerText = "Attempting...";
+      
+      setTimeout(() => {
+        this.classList.remove('opacity-80', 'cursor-not-allowed');
+        btnText.innerText = originalText;
+        // Logic to re-trigger scan animation or check hardware
+        console.log('Hardware poll initiated...');
+      }, 2000);
+    });
+
+    // Subtle parallax effect for mesh background
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      const mesh = document.querySelector('.mesh-bg');
+      mesh.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+    });
+  </script>
+</body></html>

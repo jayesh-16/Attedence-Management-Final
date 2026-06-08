@@ -2,10 +2,26 @@ const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
+export const viewport = {
+  themeColor: "#3b82f6",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "TCET | Mme Attendance",
   description: "Attendance Management System for TCET MME",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "TCET Attendance",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   icons: {
     icon: {
       url: '/favicon.png',

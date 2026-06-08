@@ -34,8 +34,6 @@ import { RefreshCw, BarChart2, PieChart as PieChartIcon, Calendar, Clock, Users 
 import { Button } from "@/components/ui/button"
 import { useRefresh } from "@/components/Sidebar"
 import { fetchSubjectsByProgram } from "@/utils/subjects"
-import Navbar from "@/components/Navbar"
-
 // Map class names to class IDs - ensure these match your database IDs
 const classIdMap: Record<string, string> = {
   "SE MME": "61d3f3cc-748e-49d2-8212-6a3fc97136c8",
@@ -194,8 +192,6 @@ export default function AnalyticsPage() {
 
   return (
     <div className="w-full max-w-full p-4 sm:p-6">
-      {/* Navbar */}
-      <Navbar title="Analytics" />
       
       {/* Page Header Card */}
       <div className="grid grid-cols-1 gap-4 mt-6">

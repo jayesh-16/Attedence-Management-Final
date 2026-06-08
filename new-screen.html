@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | Attendance Manager</title>
+<!-- Tailwind CSS with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Font: Hanken Grotesk -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#003ea8",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "inverse-primary": "#b4c5ff",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-secondary-fixed": "#0b1c30",
+                    "primary": "#004ac6",
+                    "surface-container-high": "#e6e8ea",
+                    "on-surface": "#191c1e",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2d3133",
+                    "surface": "#f7f9fb",
+                    "tertiary-container": "#bc4800",
+                    "on-tertiary-fixed": "#360f00",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-error": "#ffffff",
+                    "primary-container": "#2563eb",
+                    "outline": "#737686",
+                    "surface-bright": "#f7f9fb",
+                    "background": "#f7f9fb",
+                    "inverse-on-surface": "#eff1f3",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#0053db",
+                    "tertiary-fixed": "#ffdbcd",
+                    "on-surface-variant": "#434655",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "primary-fixed": "#dbe1ff",
+                    "outline-variant": "#c3c6d7",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-container": "#ffede6",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "secondary-container": "#d0e1fb",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "on-background": "#191c1e",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-primary-fixed": "#00174b",
+                    "on-primary-container": "#eeefff",
+                    "tertiary": "#943700",
+                    "secondary": "#505f76",
+                    "surface-container": "#eceef0",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary-container": "#54647a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "1.5rem",
+                    "xs": "0.25rem",
+                    "base": "4px",
+                    "sm": "0.5rem",
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "md": "1rem",
+                    "xl": "2.5rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "body-sm": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<main class="flex min-h-screen">
+<!-- Left Panel: Full-Bleed Branding -->
+<section class="hidden lg:flex relative w-1/2 flex-col justify-center items-center overflow-hidden">
+<!-- Background Image -->
+<img alt="Biometric attendance background" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnZgsk1DXaX2HLrWq9PLNkaHboVO5TOgFM0f-qtSUAwnbbd4mz_66JLx8fRh0fMUEUnBI31pVsQEdcqrrTR5P-MvbL9KkumU3SHtKu5ryz_bS_c_IKoKhiyQBbgtu-IxNvjPvYRR2-kaEiSlQtD63UG0bWtQYL-cqIWKOB8emh3kSPNmBQig5iBadO6liDWqH7GSqHaf2OSs-AjSnTZNKLGeYqgMqZQZ_1RGSBhHLAfgp0spdoVY9zpL5hoqum2V4_1x7ILRtbB0-2"/>
+<!-- Dark Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 via-on-background/40 to-transparent"></div>
+<!-- Content -->
+<div class="relative z-10 px-xl text-center max-w-xl">
+<div class="mb-lg inline-flex items-center justify-center p-md rounded-xl glass-effect border border-white/20">
+<span class="material-symbols-outlined text-primary-fixed text-4xl" data-icon="fingerprint">fingerprint</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-white mb-md">Welcome back</h1>
+<p class="font-body-lg text-body-lg text-outline-variant">
+                    Securely manage your workforce attendance with biometric precision and real-time synchronization.
+                </p>
+</div>
+<!-- Subtle Decorative Element -->
+<div class="absolute bottom-xl left-xl flex gap-md">
+<div class="flex items-center gap-sm text-white/50 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="verified_user">verified_user</span>
+<span>End-to-End Encrypted</span>
+</div>
+<div class="flex items-center gap-sm text-white/50 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="cloud_done">cloud_done</span>
+<span>Cloud Synced</span>
+</div>
+</div>
+</section>
+<!-- Right Panel: Login Form -->
+<section class="w-full lg:w-1/2 flex flex-col bg-surface-container-lowest">
+<div class="flex-grow flex flex-col justify-center items-center px-md py-xl">
+<div class="w-full max-w-md">
+<!-- Brand Anchor Logo (TopAppBar Style Guidance) -->
+<div class="flex items-center gap-sm mb-xl">
+<div class="bg-primary p-sm rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="event_note">event_note</span>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary">Attendance Manager</span>
+</div>
+<!-- Header -->
+<div class="mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Administrator Login</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Verify your credentials to access the console.</p>
+</div>
+<!-- Login Form -->
+<form action="#" class="space-y-lg" onsubmit="return false">
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface" for="email">Administrator Email</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors" data-icon="mail">mail</span>
+<input class="w-full pl-[48px] pr-md py-md bg-surface border border-outline-variant rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none font-body-md text-body-md" id="email" placeholder="admin@organization.com" type="email"/>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface" for="password">Security Key</label>
+<a class="font-label-sm text-label-sm text-primary hover:underline transition-all" href="#">Forgot Security Key?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors" data-icon="lock">lock</span>
+<input class="w-full pl-[48px] pr-md py-md bg-surface border border-outline-variant rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none font-body-md text-body-md" id="password" placeholder="••••••••••••" type="password"/>
+<button class="absolute right-md top-1/2 -translate-y-1/2 text-outline-variant hover:text-outline transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-sm py-sm">
+<input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary" id="remember" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer" for="remember">Remember this workstation for 30 days</label>
+</div>
+<!-- Button styled from guidelines -->
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-lg rounded-xl shadow-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-sm">
+<span>Authorize &amp; Sign In</span>
+<span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Biometric Fallback (Visual Only) -->
+<div class="relative pt-lg pb-sm">
+<div aria-hidden="true" class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<div class="relative flex justify-center text-label-sm font-label-sm uppercase tracking-widest">
+<span class="bg-surface-container-lowest px-md text-outline">or authenticate with</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<button class="flex items-center justify-center gap-sm py-md border border-outline-variant rounded-xl font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="fingerprint">fingerprint</span>
+<span>Touch ID</span>
+</button>
+<button class="flex items-center justify-center gap-sm py-md border border-outline-variant rounded-xl font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="face">face</span>
+<span>Face ID</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Footer: Shared Component JSON Implementation -->
+<footer class="flex flex-col items-center gap-sm px-md w-full py-lg mt-auto bg-transparent">
+<div class="flex flex-wrap justify-center gap-lg">
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors cursor-pointer" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors cursor-pointer" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors cursor-pointer" href="#">Support</a>
+</div>
+<p class="font-label-md text-label-md text-on-surface">© 2024 Attendance Manager. All rights reserved.</p>
+</footer>
+</section>
+</main>
+<script>
+        // Simple micro-interaction for the "Authorize & Sign In" button
+        const loginBtn = document.querySelector('button');
+        loginBtn.addEventListener('click', () => {
+            const originalContent = loginBtn.innerHTML;
+            loginBtn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Authorizing...</span>
+            `;
+            setTimeout(() => {
+                loginBtn.innerHTML = originalContent;
+            }, 2000);
+        });
+
+        // Dynamic visual cues for inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+    </script>
+</body></html>

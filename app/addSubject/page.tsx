@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import AttendanceTable from "./studenList";
 import { fetchAllMMESubjects, type SubjectBasic } from '@/utils/subjects';
 import { ChevronLeft, ChevronRight, BookOpen, Users, GraduationCap } from "lucide-react";
-import Navbar from "@/components/Navbar";
-
 interface Subject {
   name: string;
   class: string;
@@ -108,8 +106,6 @@ export default function AddSubject() {
 
   return (
     <div className="w-full max-w-full p-4 sm:p-6">
-      {/* Navbar */}
-      <Navbar title="Attendance" />
       
       {/* Page Header Card */}
       <div className="grid grid-cols-1 gap-4 mt-6">

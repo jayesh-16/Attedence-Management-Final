@@ -4,6 +4,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import { useState, useEffect } from "react";
+import { Toaster } from "@/components/ui/sonner";
 import { metadata } from "./metadata"; // Import the metadata
 import { usePathname } from "next/navigation"; // Import usePathname
 
@@ -54,6 +55,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
         <link rel="shortcut icon" type="image/png" href="/favicon.png" />
         
+        {/* PWA Meta Tags */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#3b82f6" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Attendance" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={metadata.metadataBase.toString()} />
@@ -72,16 +81,17 @@ export default function RootLayout({
       </head>
       <body className="bg-white overflow-x-hidden">
         <div className="flex flex-col md:flex-row min-h-screen">
-          {/* Only show Sidebar if not on the sign-in page */}
-          {pathname !== "/sign-in" && (
+          {/* Only show Sidebar if not on auth/connection pages */}
+          {pathname !== "/sign-in" && pathname !== "/connect-device" && (
             <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
           )}
           <main className={`flex-1 min-h-screen transition-all duration-300 ease-in-out
-            ${isExpanded ? 'md:ml-64' : 'md:ml-20'}
-            ${pathname !== "/sign-in" ? 'p-2 pb-20 sm:p-4 md:p-6 md:pb-6' : 'p-0'}`}>
+            ${pathname !== "/sign-in" && pathname !== "/connect-device" ? (isExpanded ? 'md:ml-64' : 'md:ml-20') : ''}
+            ${pathname !== "/sign-in" && pathname !== "/connect-device" ? 'p-2 pb-20 sm:p-4 md:p-6 md:pb-6' : 'p-0'}`}>
             {children}
           </main>
         </div>
+        <Toaster position="top-right" />
       </body>
     </html>
   );

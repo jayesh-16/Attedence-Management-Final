@@ -50,9 +50,6 @@ export default function Navbar({ title = 'Dashboard', className }: NavbarProps) 
           <Link href="/anylatics" className="text-gray-600 hover:text-blue-600 font-medium">
             Analytics
           </Link>
-          <Link href="/addSubject" className="text-gray-600 hover:text-blue-600 font-medium">
-            Attendance
-          </Link>
           <Link href="/reports" className="text-gray-600 hover:text-blue-600 font-medium">
             Reports
           </Link>
