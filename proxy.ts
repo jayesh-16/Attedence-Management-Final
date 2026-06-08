@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // Skip middleware for favicon requests
   if (request.nextUrl.pathname === '/favicon.png') {
     return NextResponse.next();
